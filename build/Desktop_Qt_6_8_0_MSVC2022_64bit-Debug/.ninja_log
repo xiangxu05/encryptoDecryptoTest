@@ -1,0 +1,9 @@
+# ninja log v5
+7	144	7633809607251099	encryptoDecrypto_autogen/timestamp	9fce1be1957d2506
+7	144	7633809607251099	encryptoDecrypto_autogen/mocs_compilation.cpp	9fce1be1957d2506
+7	144	7633809607251099	D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto/build/Desktop_Qt_6_8_0_MSVC2022_64bit-Debug/encryptoDecrypto_autogen/timestamp	9fce1be1957d2506
+1959	2142	7633809629999300	encryptoDecrypto.exe	66a010b379044213
+310	2025	7633806927254398	CMakeFiles/encryptoDecrypto.dir/main.cpp.obj	9fadd0b91f87cb37
+7	144	7633809607251099	D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto/build/Desktop_Qt_6_8_0_MSVC2022_64bit-Debug/encryptoDecrypto_autogen/mocs_compilation.cpp	9fce1be1957d2506
+307	2023	7633806927264395	CMakeFiles/encryptoDecrypto.dir/encryptoDecrypto_autogen/mocs_compilation.cpp.obj	afcc9fb286ea8227
+150	1959	7633809628529838	CMakeFiles/encryptoDecrypto.dir/functiontest.cpp.obj	81f9a1ca7351f80d

@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-e20a1f70276bb01cdea0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "encryptoDecrypto",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "encryptoDecrypto::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-encryptoDecrypto-Debug-dde1f60d39f3b7e6890e.json",
+					"name" : "encryptoDecrypto",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "encryptoDecrypto_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-encryptoDecrypto_autogen-Debug-4b26f931cd002c79ef15.json",
+					"name" : "encryptoDecrypto_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "encryptoDecrypto_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-encryptoDecrypto_autogen_timestamp_deps-Debug-3f59f928dc9f1cd941fd.json",
+					"name" : "encryptoDecrypto_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto/build/Desktop_Qt_6_8_0_MSVC2022_64bit-Debug",
+		"source" : "D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

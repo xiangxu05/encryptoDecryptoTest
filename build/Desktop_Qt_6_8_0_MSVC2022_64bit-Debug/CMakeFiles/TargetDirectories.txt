@@ -1,0 +1,8 @@
+D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto/build/Desktop_Qt_6_8_0_MSVC2022_64bit-Debug/CMakeFiles/encryptoDecrypto.dir
+D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto/build/Desktop_Qt_6_8_0_MSVC2022_64bit-Debug/CMakeFiles/edit_cache.dir
+D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto/build/Desktop_Qt_6_8_0_MSVC2022_64bit-Debug/CMakeFiles/rebuild_cache.dir
+D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto/build/Desktop_Qt_6_8_0_MSVC2022_64bit-Debug/CMakeFiles/list_install_components.dir
+D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto/build/Desktop_Qt_6_8_0_MSVC2022_64bit-Debug/CMakeFiles/install.dir
+D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto/build/Desktop_Qt_6_8_0_MSVC2022_64bit-Debug/CMakeFiles/install/local.dir
+D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto/build/Desktop_Qt_6_8_0_MSVC2022_64bit-Debug/CMakeFiles/encryptoDecrypto_autogen_timestamp_deps.dir
+D:/Jobs/QT/encryptoDecrypto/encryptoDecrypto/build/Desktop_Qt_6_8_0_MSVC2022_64bit-Debug/CMakeFiles/encryptoDecrypto_autogen.dir
