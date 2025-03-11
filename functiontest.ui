@@ -259,7 +259,7 @@ QTabWidget::tab-bar {
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_2">
+               <widget class="QComboBox" name="baudRateBox">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -374,7 +374,7 @@ QTabWidget::tab-bar {
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_3">
+               <widget class="QComboBox" name="parityBox">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -436,7 +436,7 @@ QTabWidget::tab-bar {
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_4">
+               <widget class="QComboBox" name="dataBitsBox">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -493,7 +493,7 @@ QTabWidget::tab-bar {
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_5">
+               <widget class="QComboBox" name="stopBitsBox">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -548,7 +548,7 @@ QTabWidget::tab-bar {
                </spacer>
               </item>
               <item>
-               <widget class="QLabel" name="label_6">
+               <widget class="QLabel" name="statusLabel">
                 <property name="minimumSize">
                  <size>
                   <width>24</width>
@@ -584,7 +584,7 @@ border-radius:12px;</string>
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton">
+               <widget class="QPushButton" name="connectButton">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -626,12 +626,18 @@ border-radius:12px;</string>
                 <property name="text">
                  <string>AT_default 默认回传模式</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="checkBox_2">
                 <property name="text">
                  <string>AT_init 初始化PUF</string>
+                </property>
+                <property name="checkable">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -640,12 +646,18 @@ border-radius:12px;</string>
                 <property name="text">
                  <string>AT_source 查看helpdata值</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="checkBox_4">
                 <property name="text">
                  <string>AT_strongSRAM 强PUF模式</string>
+                </property>
+                <property name="checkable">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -658,12 +670,18 @@ border-radius:12px;</string>
                 <property name="text">
                  <string>AT_sourceSRAM SRAM源值</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="checkBox_5">
                 <property name="text">
                  <string>AT_delay 时延测试模式</string>
+                </property>
+                <property name="checkable">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -672,12 +690,18 @@ border-radius:12px;</string>
                 <property name="text">
                  <string>AT_File 用户文件标签管理模式</string>
                 </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item>
                <widget class="QCheckBox" name="checkBox_6">
                 <property name="text">
                  <string>AT_Statu 设备状态查询</string>
+                </property>
+                <property name="checkable">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
