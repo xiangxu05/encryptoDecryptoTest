@@ -37,6 +37,12 @@
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
      <property name="styleSheet">
       <string notr="true">/* 设置 QWidget 的全局样式 */
 QWidget {
@@ -162,10 +168,50 @@ QTabBar::tab:hover {
 
 QTabWidget::tab-bar {
     alignment: left;
-}</string>
+}
+
+
+QTextEdit {
+    background: transparent; /* 设置背景透明 */
+    color: #333333;
+    font-family: &quot;Microsoft YaHei&quot;, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    border: none; /* 去除边框 */
+    padding: 6px;
+    line-height: 0.8; /* 调整行间距 */
+}
+
+/* 可选：鼠标悬停时稍微调整 */
+QTextEdit:hover {
+    background: transparent;
+    color: #000000;
+}
+
+/* 可选：输入时稍微调整（避免透明导致看不清） */
+QTextEdit:focus {
+    background: transparent;
+    color: #000000;
+}
+
+/* 设置 QCheckBox 样式 */
+QCheckBox {
+    spacing: 8px; /* 文字和复选框的间距 */
+    color: #333333;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 鼠标悬停时的 QCheckBox */
+QCheckBox:hover {
+    color: #0088FF;
+    font-weight: bold;
+}
+
+</string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="functionTestTab">
       <property name="styleSheet">
@@ -622,42 +668,57 @@ border-radius:12px;</string>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QCheckBox" name="checkBox">
+               <widget class="QCheckBox" name="defaltCheckBox">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="text">
-                 <string>AT_default 默认回传模式</string>
+                 <string>AT_default 随机输出模式</string>
                 </property>
                 <property name="checkable">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox_2">
+               <widget class="QCheckBox" name="initCheckBox">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="text">
                  <string>AT_init 初始化PUF</string>
                 </property>
                 <property name="checkable">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox_3">
+               <widget class="QCheckBox" name="sourceCheckBox">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="text">
                  <string>AT_source 查看helpdata值</string>
                 </property>
                 <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
                  <bool>false</bool>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox_4">
+               <widget class="QCheckBox" name="strongCheckBox">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="text">
                  <string>AT_strongSRAM 强PUF模式</string>
                 </property>
                 <property name="checkable">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -666,42 +727,54 @@ border-radius:12px;</string>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>
-               <widget class="QCheckBox" name="checkBox_8">
+               <widget class="QCheckBox" name="SRAMCheckBox">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="text">
                  <string>AT_sourceSRAM SRAM源值</string>
                 </property>
                 <property name="checkable">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox_5">
+               <widget class="QCheckBox" name="delayCheckBox">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="text">
                  <string>AT_delay 时延测试模式</string>
                 </property>
                 <property name="checkable">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox_7">
+               <widget class="QCheckBox" name="fileCheckBox">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="text">
                  <string>AT_File 用户文件标签管理模式</string>
                 </property>
                 <property name="checkable">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox_6">
+               <widget class="QCheckBox" name="statuCheckBox">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="text">
                  <string>AT_Statu 设备状态查询</string>
                 </property>
                 <property name="checkable">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -740,7 +813,69 @@ border-radius:12px;</string>
       <attribute name="title">
        <string>文件加解密页</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_3"/>
+      <layout class="QVBoxLayout" name="verticalLayout_10">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_17">
+         <item>
+          <widget class="QGroupBox" name="groupBox_6">
+           <property name="minimumSize">
+            <size>
+             <width>245</width>
+             <height>355</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>245</width>
+             <height>355</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="title">
+            <string>实验步骤</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_9" stretch=""/>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_5">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="title">
+            <string>文件列表</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <item>
+             <widget class="QTreeView" name="fileView"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="title">
+          <string>数据显示</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QTextEdit" name="textEdit_2">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

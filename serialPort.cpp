@@ -2,10 +2,11 @@
 #include <QDebug>
 
 SerialPort::SerialPort(QObject *parent)
-    : QObject(parent), m_serialPort(new QSerialPort(this))
+    : QObject(parent), m_serialPort(new QSerialPort(this)), m_timer(new QTimer(this))
 {
-    // 连接串口的 readyRead 信号到处理函数
+    m_timer->setSingleShot(true);
     connect(m_serialPort, &QSerialPort::readyRead, this, &SerialPort::handleReadyRead);
+    connect(m_timer, &QTimer::timeout, this, &SerialPort::handleTimeout);
 }
 
 SerialPort::~SerialPort()
@@ -73,16 +74,6 @@ bool SerialPort::writeData(const QByteArray &data)
     return true;
 }
 
-QByteArray SerialPort::readData()
-{
-    if (!m_serialPort->isOpen()) {
-        qDebug() << "Serial port is not open";
-        return QByteArray();
-    }
-
-    return m_serialPort->readAll();
-}
-
 QStringList SerialPort::availablePorts()
 {
     QStringList ports;
@@ -100,10 +91,30 @@ bool SerialPort::isOpen() const
 
 void SerialPort::handleReadyRead()
 {
-    QByteArray data = m_serialPort->readAll();
-    if (!data.isEmpty()) {
-        // qDebug() << "Received data:" << data;
-        emit dataReceived(data);
+    if (!m_serialPort->bytesAvailable()) {
+        return;
+    }
+
+    QByteArray newData = m_serialPort->readAll();
+    if (!newData.isEmpty()) {
+        m_tempData.append(newData); // 累加字节数据
+        m_timer->start(100); // 重新启动定时器，超时时间设为 100 毫秒
+    }
+}
+
+void SerialPort::handleTimeout()
+{
+    if (!m_tempData.isEmpty()) {
+        QStringDecoder decoder(QStringDecoder::System);
+        QString receivedString = decoder.decode(m_tempData);
+        // qDebug() << m_tempData;
+        if(receivedString.isEmpty() || receivedString != "\n"){
+            if(receivedString.endsWith("\n")){
+                receivedString.chop(1);
+            }
+            emit dataReceived(receivedString);
+            m_tempData.clear(); // 清空缓冲区
+        }
     }
 }
 
@@ -149,3 +160,4 @@ QSerialPort::StopBits SerialPort::stringToStopBits(const QString &stopBits)
     else
         return QSerialPort::OneStop;
 }
+

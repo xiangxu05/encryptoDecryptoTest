@@ -5,6 +5,9 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QString>
+#include <QTimer>
+#include <QStringConverter>
+#include <QStringDecoder>
 
 class SerialPort : public QObject
 {
@@ -23,9 +26,6 @@ public:
     // 写入数据
     bool writeData(const QByteArray &data);
 
-    // 读取数据
-    QByteArray readData();
-
     // 获取可用的串口列表
     static QStringList availablePorts();
 
@@ -34,15 +34,16 @@ public:
 
 signals:
     // 接收到数据时发出的信号
-    void dataReceived(const QByteArray &data);
+    void dataReceived(const QString &data);
 
 private slots:
     // 处理串口接收到的数据
     void handleReadyRead();
-
+    void handleTimeout();
 private:
     QSerialPort *m_serialPort;
-
+    QTimer *m_timer;
+    QByteArray m_tempData;
     // 辅助函数：将字符串转换为 QSerialPort::Parity
     QSerialPort::Parity stringToParity(const QString &parity);
 
