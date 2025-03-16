@@ -14,9 +14,35 @@ FunctionTest::FunctionTest(QWidget *parent)
 {
     ui->setupUi(this);
 
+    QPalette palette;
+    QPixmap pixmap(":/icon/background.png");
+    palette.setBrush(QPalette::Window, QBrush(pixmap));
+    this->setPalette(palette);
+    this->setAutoFillBackground(true);
+
     this->setWindowTitle("PUF设备与加解密功能测试");
     QIcon icon(":/icon/encryptoDecrypto.ico");
     this->setWindowIcon(icon);
+
+    int totalWidth = ui->treeWidget->width();
+    ui->treeWidget->setColumnWidth(0, totalWidth * 2);
+    ui->treeWidget->setColumnWidth(1, totalWidth);
+    ui->treeWidget->setColumnWidth(2, totalWidth);
+    ui->treeWidget_2->setColumnWidth(0, totalWidth * 2);
+    ui->treeWidget_2->setColumnWidth(1, totalWidth);
+    ui->treeWidget_2->setColumnWidth(2, totalWidth);
+
+    QDir().mkpath("./files/encrypto");
+    QDir().mkpath("./files/decrypto");
+
+    watcher.addPath("./files/encrypto");
+    watcher.addPath("./files/decrypto");
+    connect(&watcher, &QFileSystemWatcher::directoryChanged, this, &FunctionTest::onFileChanged);
+    connect(&watcher, &QFileSystemWatcher::fileChanged, this, &FunctionTest::onFileChanged);
+
+    addDirectoryContentsToTreeWidget("./files/encrypto",ui->treeWidget);
+    addDirectoryContentsToTreeWidget("./files/decrypto",ui->treeWidget_2);
+
     serialPort_ = std::make_unique<SerialPort>();
 
     connect(ui->portBox,&PortScannerComboBox::clicked,this,&FunctionTest::on_portBox_clicked);
@@ -44,7 +70,11 @@ void FunctionTest::on_portBox_clicked()
 }
 
 void FunctionTest::serialDateReceived(const QString& data){
-    ui->textEdit->append("[" + getCurrentTime() + "] " + "接收：" +data);
+    if(ui->tabWidget->currentWidget() == ui->fileEncrypto){
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "接收：" + data);
+    }else{
+        ui->textEdit->append("[" + getCurrentTime() + "] " + "接收：" + data);
+    }
 }
 
 void FunctionTest::judgeReceived(const QString& data){
@@ -58,6 +88,14 @@ void FunctionTest::judgeReceived(const QString& data){
         ui->strongCheckBox->setChecked(true);
     }else if(ui->textEdit->toPlainText().contains("获取SRAM单元位置上的原始值")){
         ui->SRAMCheckBox->setChecked(true);
+    }
+}
+
+void FunctionTest::onFileChanged(const QString& path){
+    if(path.contains("encrypto")){
+        addDirectoryContentsToTreeWidget("./files/encrypto",ui->treeWidget);
+    }else{
+        addDirectoryContentsToTreeWidget("./files/decrypto",ui->treeWidget_2);
     }
 }
 
@@ -92,7 +130,11 @@ void FunctionTest::on_connectButton_clicked()
 
 void FunctionTest::writeToSerial(const QByteArray& data)
 {
-    ui->textEdit->append("[" + getCurrentTime() + "] " + "发送：" + data);
+    if(ui->tabWidget->currentWidget() == ui->fileEncrypto){
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "发送：" + data);
+    }else{
+        ui->textEdit->append("[" + getCurrentTime() + "] " + "发送：" + data);
+    }
     serialPort_->writeData(data);
 }
 
@@ -226,5 +268,94 @@ void FunctionTest::on_statuCheckBox_clicked()
     ui->textEdit->clear();
     QByteArray testData = "AT_Statu";
     writeToSerial(testData);
+}
+
+void FunctionTest::addDirectoryContentsToTreeWidget(const QString& path, QTreeWidget* treeWidget) {
+    // // 获取第一个顶层项
+    // QTreeWidgetItem* topLevelItem = treeWidget->topLevelItem(0);
+
+    // // 获取第一项的文本和子项
+    // QString topLevelItemText = topLevelItem->text(0);
+
+    // 清空树形控件的所有项
+    treeWidget->clear();
+
+    // // 重新创建第一项
+    // QTreeWidgetItem* newTopLevelItem = new QTreeWidgetItem(treeWidget);
+    // newTopLevelItem->setText(0, topLevelItemText);  // 恢复第一项的名称
+
+    // treeWidget->addTopLevelItem(newTopLevelItem);
+    QDir dir(path);
+
+    // 获取当前目录下的所有文件和文件夹
+    QFileInfoList entries = dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot, QDir::DirsFirst);
+
+    for (const QFileInfo& entry : entries) {
+        // 创建新的 QTreeWidgetItem 项
+        QTreeWidgetItem* item = new QTreeWidgetItem();
+
+        // 设置目录或文件的名称
+        item->setText(0, entry.fileName());
+
+        // 获取文件的后缀（类型）
+        QString fileType = entry.suffix();
+        if (fileType.isEmpty()) {
+            fileType = "文件夹";  // 没有后缀的文件
+        }
+        item->setText(1, fileType);
+
+        // 设置文件的大小
+        if (entry.isFile()) {
+            item->setText(2, QString::number(entry.size()));  // 文件大小，以字符串形式显示
+        } else {
+            item->setText(2, "N/A");  // 文件夹没有大小，显示 "N/A"
+        }
+
+        // 将项添加到树形控件
+        treeWidget->addTopLevelItem(item);
+    }
+}
+
+
+
+void FunctionTest::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    if (item) {  // 确保 item 不是空指针
+        QString basePath = "./files/encrypto/";
+        QString itemText = item->text(0);  // 获取选中的项的文本（文件/文件夹名）
+        QString fullPath = basePath + itemText;  // 构造完整路径
+
+        QFileInfo fileInfo(fullPath);  // 获取文件/目录信息
+
+        if (fileInfo.exists()) {  // 确保路径存在
+            if (fileInfo.isFile()) {
+                QString absolutePath = fileInfo.absoluteFilePath();  // 获取绝对路径
+                ui->lineEdit->setText(absolutePath);
+            } else if (fileInfo.isDir()) {
+                qDebug() << "选中的是目录：" << fileInfo.absoluteFilePath();
+            }
+        }
+    }
+}
+
+
+void FunctionTest::on_treeWidget_2_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    if (item) {  // 确保 item 不是空指针
+        QString basePath = "./files/decrypto/";
+        QString itemText = item->text(0);  // 获取选中的项的文本（文件/文件夹名）
+        QString fullPath = basePath + itemText;  // 构造完整路径
+
+        QFileInfo fileInfo(fullPath);  // 获取文件/目录信息
+
+        if (fileInfo.exists()) {  // 确保路径存在
+            if (fileInfo.isFile()) {
+                QString absolutePath = fileInfo.absoluteFilePath();  // 获取绝对路径
+                ui->lineEdit->setText(absolutePath);
+            } else if (fileInfo.isDir()) {
+                qDebug() << "选中的是目录：" << fileInfo.absoluteFilePath();
+            }
+        }
+    }
 }
 

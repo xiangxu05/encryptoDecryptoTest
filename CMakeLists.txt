@@ -30,6 +30,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         .gitignore
         serialPort.cpp
         resources.qrc
+        MyTabWidget.h
+
 
 
     )
