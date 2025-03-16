@@ -17,6 +17,8 @@
 #include <QTreeWidget>
 #include <QPainter>
 #include <QPixmap>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include "portScannerComboBox.h"
 #include "serialPort.h"
@@ -62,6 +64,10 @@ private slots:
     void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
     void on_treeWidget_2_itemDoubleClicked(QTreeWidgetItem *item, int column);
+    void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
+
+    void on_treeWidget_2_itemClicked(QTreeWidgetItem *item, int column);
+
 private:
     Ui::FunctionTest *ui;
     std::unique_ptr<SerialPort> serialPort_;

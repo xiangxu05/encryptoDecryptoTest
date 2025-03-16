@@ -328,6 +328,40 @@ void FunctionTest::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int co
         QFileInfo fileInfo(fullPath);  // 获取文件/目录信息
 
         if (fileInfo.exists()) {  // 确保路径存在
+            QString absolutePath = fileInfo.absoluteFilePath();  // 获取绝对路径
+            QDesktopServices::openUrl(QUrl::fromLocalFile(absolutePath));
+        }
+    }
+}
+
+
+void FunctionTest::on_treeWidget_2_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    if (item) {  // 确保 item 不是空指针
+        QString basePath = "./files/decrypto/";
+        QString itemText = item->text(0);  // 获取选中的项的文本（文件/文件夹名）
+        QString fullPath = basePath + itemText;  // 构造完整路径
+
+        QFileInfo fileInfo(fullPath);  // 获取文件/目录信息
+
+        if (fileInfo.exists()) {  // 确保路径存在
+            QString absolutePath = fileInfo.absoluteFilePath();  // 获取绝对路径
+            QDesktopServices::openUrl(QUrl::fromLocalFile(absolutePath));
+        }
+    }
+}
+
+
+void FunctionTest::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
+{
+    if (item) {  // 确保 item 不是空指针
+        QString basePath = "./files/encrypto/";
+        QString itemText = item->text(0);  // 获取选中的项的文本（文件/文件夹名）
+        QString fullPath = basePath + itemText;  // 构造完整路径
+
+        QFileInfo fileInfo(fullPath);  // 获取文件/目录信息
+
+        if (fileInfo.exists()) {  // 确保路径存在
             if (fileInfo.isFile()) {
                 QString absolutePath = fileInfo.absoluteFilePath();  // 获取绝对路径
                 ui->lineEdit->setText(absolutePath);
@@ -339,10 +373,10 @@ void FunctionTest::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int co
 }
 
 
-void FunctionTest::on_treeWidget_2_itemDoubleClicked(QTreeWidgetItem *item, int column)
+void FunctionTest::on_treeWidget_2_itemClicked(QTreeWidgetItem *item, int column)
 {
     if (item) {  // 确保 item 不是空指针
-        QString basePath = "./files/decrypto/";
+        QString basePath = "./files/encrypto/";
         QString itemText = item->text(0);  // 获取选中的项的文本（文件/文件夹名）
         QString fullPath = basePath + itemText;  // 构造完整路径
 
