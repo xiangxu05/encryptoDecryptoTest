@@ -19,9 +19,11 @@
 #include <QPixmap>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QMimeData>
 
 #include "portScannerComboBox.h"
 #include "serialPort.h"
+#include "encrypto.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -68,11 +70,53 @@ private slots:
 
     void on_treeWidget_2_itemClicked(QTreeWidgetItem *item, int column);
 
+    void on_registrationBox_clicked();
+
+    void on_registrationBox_1_stateChanged(int arg1);
+
+    void on_registrationBox_2_stateChanged(int arg1);
+
+    void on_keyAgreement_clicked();
+
+    void on_keyAgreement_1_stateChanged(int arg1);
+
+    void on_keyGeneration_clicked();
+
+    void on_keyGeneration_1_stateChanged(int arg1);
+
+    void on_keyGeneration_2_stateChanged(int arg1);
+
+    void on_keyAgreement_2_stateChanged(int arg1);
+
+    void on_registrationBox_1_clicked();
+
+    void on_registrationBox_2_clicked();
+
+    void on_registrationBox_stateChanged(int arg1);
+
+    void on_keyAgreement_1_clicked();
+
+    void on_keyAgreement_2_clicked();
+
+    void on_keyGeneration_1_clicked();
+
+    void on_keyGeneration_2_clicked();
+
+    void on_fileEncryptoBox_clicked();
+
+    void on_fileDecryptoBox_clicked();
+
 private:
     Ui::FunctionTest *ui;
     std::unique_ptr<SerialPort> serialPort_;
     QFileSystemWatcher watcher;
     void writeToSerial(const QByteArray& data);
     void addDirectoryContentsToTreeWidget(const QString& path, QTreeWidget* treeWidget);
+
+    QString sourseKey_1;
+    QString sourseKey_2;
+    QString keyAgeement;
+    QString keyGeneration_1;
+    QString keyGeneration_2;
 };
 #endif // FUNCTIONTEST_H

@@ -289,7 +289,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 }</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="functionTestTab">
       <property name="styleSheet">
@@ -922,7 +922,7 @@ border-radius:12px;</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
             <item>
-             <widget class="QCheckBox" name="defaltCheckBox_2">
+             <widget class="QCheckBox" name="registrationBox">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -950,7 +950,7 @@ border-radius:12px;</string>
                </spacer>
               </item>
               <item>
-               <widget class="QCheckBox" name="defaltCheckBox_3">
+               <widget class="QCheckBox" name="registrationBox_1">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -986,7 +986,7 @@ border-radius:12px;</string>
                </spacer>
               </item>
               <item>
-               <widget class="QCheckBox" name="defaltCheckBox_4">
+               <widget class="QCheckBox" name="registrationBox_2">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -1007,7 +1007,7 @@ border-radius:12px;</string>
              </layout>
             </item>
             <item>
-             <widget class="QCheckBox" name="defaltCheckBox_5">
+             <widget class="QCheckBox" name="keyAgreement">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -1035,7 +1035,7 @@ border-radius:12px;</string>
                </spacer>
               </item>
               <item>
-               <widget class="QCheckBox" name="defaltCheckBox_6">
+               <widget class="QCheckBox" name="keyAgreement_1">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -1071,7 +1071,7 @@ border-radius:12px;</string>
                </spacer>
               </item>
               <item>
-               <widget class="QCheckBox" name="defaltCheckBox_7">
+               <widget class="QCheckBox" name="keyAgreement_2">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -1092,12 +1092,12 @@ border-radius:12px;</string>
              </layout>
             </item>
             <item>
-             <widget class="QCheckBox" name="defaltCheckBox_8">
+             <widget class="QCheckBox" name="keyGeneration">
               <property name="enabled">
                <bool>true</bool>
               </property>
               <property name="text">
-               <string>可撤销密钥生成</string>
+               <string>可撤销密钥生成(10S)</string>
               </property>
               <property name="checkable">
                <bool>true</bool>
@@ -1120,7 +1120,7 @@ border-radius:12px;</string>
                </spacer>
               </item>
               <item>
-               <widget class="QCheckBox" name="defaltCheckBox_11">
+               <widget class="QCheckBox" name="keyGeneration_1">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -1156,7 +1156,7 @@ border-radius:12px;</string>
                </spacer>
               </item>
               <item>
-               <widget class="QCheckBox" name="defaltCheckBox_12">
+               <widget class="QCheckBox" name="keyGeneration_2">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -1177,7 +1177,7 @@ border-radius:12px;</string>
              </layout>
             </item>
             <item>
-             <widget class="QCheckBox" name="defaltCheckBox_9">
+             <widget class="QCheckBox" name="fileEncryptoBox">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -1190,7 +1190,7 @@ border-radius:12px;</string>
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="defaltCheckBox_10">
+             <widget class="QCheckBox" name="fileDecryptoBox">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -1239,7 +1239,7 @@ border-radius:12px;</string>
               </attribute>
               <column>
                <property name="text">
-                <string>加密名称</string>
+                <string>未加密文件</string>
                </property>
               </column>
               <column>
@@ -1263,7 +1263,7 @@ border-radius:12px;</string>
              <widget class="QTreeWidget" name="treeWidget_2">
               <column>
                <property name="text">
-                <string>解密名称</string>
+                <string>已加密文件</string>
                </property>
               </column>
               <column>

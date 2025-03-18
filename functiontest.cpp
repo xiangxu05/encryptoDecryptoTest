@@ -89,6 +89,26 @@ void FunctionTest::judgeReceived(const QString& data){
     }else if(ui->textEdit->toPlainText().contains("获取SRAM单元位置上的原始值")){
         ui->SRAMCheckBox->setChecked(true);
     }
+    if(ui->textEdit_2->toPlainText().contains("greement_1")){
+        QString keyword = "Response:\n";
+
+        int index = data.indexOf(keyword);
+        if (index != -1) {
+            QString responseValue = data.mid(index + keyword.length()).trimmed();
+            sourseKey_1 = responseValue;
+            ui->registrationBox_1->setChecked(true);
+        }
+    }
+    if(ui->textEdit_2->toPlainText().contains("greement_2")){
+        QString keyword = "Response:\n";
+
+        int index = data.indexOf(keyword);
+        if (index != -1) {
+            QString responseValue = data.mid(index + keyword.length()).trimmed();
+            sourseKey_2 = responseValue;
+            ui->registrationBox_2->setChecked(true);
+        }
+    }
 }
 
 void FunctionTest::onFileChanged(const QString& path){
@@ -376,7 +396,7 @@ void FunctionTest::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 void FunctionTest::on_treeWidget_2_itemClicked(QTreeWidgetItem *item, int column)
 {
     if (item) {  // 确保 item 不是空指针
-        QString basePath = "./files/encrypto/";
+        QString basePath = "./files/decrypto/";
         QString itemText = item->text(0);  // 获取选中的项的文本（文件/文件夹名）
         QString fullPath = basePath + itemText;  // 构造完整路径
 
@@ -393,3 +413,288 @@ void FunctionTest::on_treeWidget_2_itemClicked(QTreeWidgetItem *item, int column
     }
 }
 
+
+void FunctionTest::on_registrationBox_clicked()
+{
+    ui->registrationBox->setChecked(false);
+    if(ui->registrationBox_1->isChecked() && ui->registrationBox_2->isChecked()){
+        ui->registrationBox->setChecked(true);
+    }
+}
+
+
+void FunctionTest::on_registrationBox_1_stateChanged(int arg1)
+{
+    if(ui->registrationBox_1->isChecked() && ui->registrationBox_2->isChecked()){
+        ui->registrationBox->setChecked(true);
+    }else{
+        ui->registrationBox->setChecked(false);
+    }
+}
+
+
+void FunctionTest::on_registrationBox_2_stateChanged(int arg1)
+{
+    if(ui->registrationBox_1->isChecked() && ui->registrationBox_2->isChecked()){
+        ui->registrationBox->setChecked(true);
+    }else{
+        ui->registrationBox->setChecked(false);
+    }
+}
+
+
+void FunctionTest::on_keyAgreement_clicked()
+{
+    ui->keyAgreement->setChecked(false);
+    if(ui->keyAgreement_1->isChecked() && ui->keyAgreement_2->isChecked()){
+        ui->keyAgreement->setChecked(true);
+    }
+}
+
+
+void FunctionTest::on_keyAgreement_1_stateChanged(int arg1)
+{
+    if(ui->keyAgreement_1->isChecked() && ui->keyAgreement_2->isChecked()){
+        ui->keyAgreement->setChecked(true);
+    }else{
+        ui->keyAgreement->setChecked(false);
+    }
+}
+
+
+void FunctionTest::on_keyGeneration_clicked()
+{
+    ui->keyGeneration->setChecked(false);
+    if(ui->keyGeneration_1->isChecked() && ui->keyGeneration_2->isChecked()){
+        ui->keyGeneration->setChecked(true);
+    }
+}
+
+
+void FunctionTest::on_keyGeneration_1_stateChanged(int arg1)
+{
+    if(ui->keyGeneration_1->isChecked() && ui->keyGeneration_2->isChecked()){
+        ui->keyGeneration->setChecked(true);
+    }else{
+        ui->keyGeneration->setChecked(false);
+    }
+}
+
+
+void FunctionTest::on_keyGeneration_2_stateChanged(int arg1)
+{
+    if(ui->keyGeneration_1->isChecked() && ui->keyGeneration_2->isChecked()){
+        ui->keyGeneration->setChecked(true);
+    }else{
+        ui->keyGeneration->setChecked(false);
+    }
+}
+
+
+void FunctionTest::on_keyAgreement_2_stateChanged(int arg1)
+{
+    if(ui->keyAgreement_1->isChecked() && ui->keyAgreement_2->isChecked()){
+        ui->keyAgreement->setChecked(true);
+    }else{
+        ui->keyAgreement->setChecked(false);
+    }
+}
+
+
+void FunctionTest::on_registrationBox_1_clicked()
+{
+    ui->registrationBox_1->setChecked(false);
+    QEventLoop loop;
+    QTimer timer;
+    timer.setSingleShot(true);
+    timer.setInterval(500);
+    connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+    ui->textEdit_2->clear();
+
+    QByteArray testData = "AT_strongSram";
+    writeToSerial(testData);
+    timer.start();
+    loop.exec();
+
+    testData = "greement_1";
+    writeToSerial(testData);
+}
+
+
+void FunctionTest::on_registrationBox_2_clicked()
+{
+    ui->registrationBox_2->setChecked(false);
+    QEventLoop loop;
+    QTimer timer;
+    timer.setSingleShot(true);
+    timer.setInterval(500);
+    connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+    ui->textEdit_2->clear();
+
+    QByteArray testData = "AT_strongSram";
+    writeToSerial(testData);
+    timer.start();
+    loop.exec();
+
+    testData = "greement_2";
+    writeToSerial(testData);
+}
+
+
+void FunctionTest::on_registrationBox_stateChanged(int arg1)
+{
+    if(ui->registrationBox->isChecked()){
+        qDebug() << "sourseKey_1: " << sourseKey_1 << "\n"
+                 << "sourseKey_2: " << sourseKey_2;
+    }
+}
+
+QString xorKeys(const QString& sourseKey_1, const QString& sourseKey_2) {
+    // 将QString转换为QByteArray
+    QByteArray key1 = sourseKey_1.toUtf8();
+    QByteArray key2 = sourseKey_2.toUtf8();
+
+    // 确保两个密钥长度相同，如果不同则填充较短的密钥
+    int length = qMax(key1.length(), key2.length());
+    key1.resize(length);
+    key2.resize(length);
+
+    // 执行异或操作
+    QByteArray result;
+    for (int i = 0; i < length; ++i) {
+        result.append(key1[i] ^ key2[i]);
+    }
+
+    // 将结果转换为十六进制字符串
+    return result.toHex();
+}
+
+void FunctionTest::on_keyAgreement_1_clicked()
+{
+    QString temp;
+    ui->keyAgreement_1->setChecked(false);
+    ui->textEdit_2->clear();
+    ui->textEdit_2->append("[" + getCurrentTime() + "] " + "\nPUF设备1注册信息：" + sourseKey_1 + "\nPUF设备2注册信息：" + sourseKey_2);
+    if(!sourseKey_1.isEmpty() && !sourseKey_2.isEmpty()){
+        temp = xorKeys(sourseKey_1, sourseKey_2);
+    }else if(sourseKey_1.isEmpty()){
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "尚未注册PUF设备1");
+    }else if(sourseKey_2.isEmpty()){
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "尚未注册PUF设备2");
+    }
+    if(!temp.isEmpty()){
+        keyAgeement = temp;
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "协商密钥成功");
+        qDebug() << keyAgeement;
+        ui->keyAgreement_1->setChecked(true);
+    }
+}
+
+
+void FunctionTest::on_keyAgreement_2_clicked()
+{
+    QString temp;
+    ui->keyAgreement_2->setChecked(false);
+    ui->textEdit_2->clear();
+    ui->textEdit_2->append("[" + getCurrentTime() + "] " + "\nPUF设备1注册信息：" + sourseKey_1 + "\nPUF设备2注册信息：" + sourseKey_2);
+    if(!sourseKey_1.isEmpty() && !sourseKey_2.isEmpty()){
+        temp = xorKeys(sourseKey_1, sourseKey_2);
+    }else if(sourseKey_1.isEmpty()){
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "尚未注册PUF设备1");
+    }else if(sourseKey_2.isEmpty()){
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "尚未注册PUF设备2");
+    }
+    if(!temp.isEmpty()){
+        keyAgeement = temp;
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "协商密钥成功");
+        qDebug() << keyAgeement;
+        ui->keyAgreement_2->setChecked(true);
+    }
+}
+
+
+void FunctionTest::on_keyGeneration_1_clicked()
+{
+    ui->keyGeneration_1->setChecked(false);
+    keyGeneration_1 = encrypto::getInstance()->getEncryptoKey(10);
+    ui->textEdit_2->append("[" + getCurrentTime() + "] " + "生成可撤销密钥1：" + keyGeneration_1);
+    ui->keyGeneration_1->setChecked(true);
+}
+
+
+void FunctionTest::on_keyGeneration_2_clicked()
+{
+    ui->keyGeneration_2->setChecked(false);
+    keyGeneration_2 = encrypto::getInstance()->getDecryptoKey();
+    ui->textEdit_2->append("[" + getCurrentTime() + "] " + "生成可撤销密钥2：" + keyGeneration_2);
+    ui->keyGeneration_2->setChecked(true);
+}
+
+void FunctionTest::on_fileEncryptoBox_clicked()
+{
+    ui->fileEncryptoBox->setChecked(false);
+    if (ui->lineEdit->text().isEmpty()) {
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "未选中文件");
+        return;
+    }
+    if (keyAgeement.isEmpty() || keyGeneration_1.isEmpty()) {
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "尚未生成对应的密钥");
+    } else {
+        QString filePath = ui->lineEdit->text();
+        QString outPath = filePath;
+
+        // 替换路径中的 "files/encrypto" 为 "files/decrypto"
+        outPath.replace("files/encrypto", "files/decrypto");
+
+        // 修改文件名
+        QFileInfo fileInfo(filePath);
+        QFileInfo outFileInfo(outPath);
+        QString fileName = fileInfo.fileName();
+        QString newFileName = "encrypto_" + fileName;
+        QString newFilePath = outFileInfo.path() + "/" + newFileName;
+
+        // 加密文件内容
+        bool success = encrypto::getInstance()->encryptFile(filePath, newFilePath, keyAgeement + keyGeneration_1);
+
+        if (success) {
+            ui->textEdit_2->append("[" + getCurrentTime() + "] " + "文件加密成功: " + newFilePath);
+            ui->fileEncryptoBox->setChecked(true);
+        } else {
+            ui->textEdit_2->append("[" + getCurrentTime() + "] " + "文件加密失败");
+        }
+    }
+}
+
+
+void FunctionTest::on_fileDecryptoBox_clicked()
+{
+    ui->fileDecryptoBox->setChecked(false);
+    if (ui->lineEdit->text().isEmpty()) {
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "未选中文件");
+        return;
+    }
+    if (keyAgeement.isEmpty() || keyGeneration_2.isEmpty()) {
+        ui->textEdit_2->append("[" + getCurrentTime() + "] " + "尚未生成对应的密钥");
+    } else {
+        QString filePath = ui->lineEdit->text();
+        QString outPath = filePath;
+
+        outPath.replace("files/decrypto", "files/encrypto");
+
+        // 修改文件名
+        QFileInfo fileInfo(filePath);
+        QFileInfo outFileInfo(outPath);
+        QString newFileName = outFileInfo.fileName().remove("encrypto_");
+        QString newFilePath = outFileInfo.path() + "/" + newFileName;
+
+        // 加密文件内容
+        bool success = encrypto::getInstance()->decryptFile(filePath, newFilePath, keyAgeement + keyGeneration_2);
+
+        if (success) {
+            ui->textEdit_2->append("[" + getCurrentTime() + "] " + "文件解密成功: " + newFilePath);
+            ui->fileDecryptoBox->setChecked(true);
+        } else {
+            ui->textEdit_2->append("[" + getCurrentTime() + "] " + "文件解密失败");
+        }
+    }
+}

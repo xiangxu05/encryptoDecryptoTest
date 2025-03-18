@@ -9,8 +9,13 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(OPENSSL_ROOT_DIR "C:/Qt/Tools/OpenSSLv3/Win_x64")
+set(OPENSSL_CRYPTO_LIBRARY "${OPENSSL_ROOT_DIR}/lib/libcrypto.lib")
+set(OPENSSL_INCLUDE_DIR "${OPENSSL_ROOT_DIR}/include")
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets SerialPort Core)
+find_package(OpenSSL REQUIRED)
 
 qt_add_resources(RESOURCES resources.qrc)
 
@@ -19,6 +24,11 @@ set(PROJECT_SOURCES
         functiontest.cpp
         functiontest.h
         functiontest.ui
+        ${RESOURCE_FILES}
+)
+
+set(RESOURCE_FILES
+    app_icon.rc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -31,6 +41,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         serialPort.cpp
         resources.qrc
         MyTabWidget.h
+        encrypto.h
+        encrypto.cpp
+        app_icon.rc
+        DragDropTreeWidget.h
 
 
 
@@ -57,6 +71,8 @@ target_link_libraries(encryptoDecrypto PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::SerialPort
     Qt${QT_VERSION_MAJOR}::Core
+    OpenSSL::SSL
+    OpenSSL::Crypto
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -85,3 +101,9 @@ if(QT_VERSION_MAJOR EQUAL 6)
 endif()
 
 target_sources(${PROJECT_NAME} PRIVATE ${RESOURCES})
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${OPENSSL_INCLUDE_DIR})
+
+set_target_properties(encryptoDecrypto PROPERTIES
+    RC_COMPILE_DEFINITIONS "IDI_ICON1=1"
+)
