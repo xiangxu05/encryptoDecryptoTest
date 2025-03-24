@@ -44,7 +44,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         encrypto.h
         encrypto.cpp
         app_icon.rc
-        DragDropTreeWidget.h
+        delTreeWidget.h
+
 
 
 

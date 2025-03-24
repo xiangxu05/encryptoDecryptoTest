@@ -289,7 +289,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 }</string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="functionTestTab">
       <property name="styleSheet">
@@ -1233,7 +1233,7 @@ border-radius:12px;</string>
              </layout>
             </item>
             <item>
-             <widget class="QTreeWidget" name="treeWidget">
+             <widget class="delTreeWidget" name="treeWidget">
               <attribute name="headerCascadingSectionResizes">
                <bool>false</bool>
               </attribute>
@@ -1260,7 +1260,7 @@ border-radius:12px;</string>
              </widget>
             </item>
             <item>
-             <widget class="QTreeWidget" name="treeWidget_2">
+             <widget class="delTreeWidget" name="treeWidget_2">
               <column>
                <property name="text">
                 <string>已加密文件</string>
@@ -1324,6 +1324,11 @@ border-radius:12px;</string>
    <extends>QTabWidget</extends>
    <header>MyTabWidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>delTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>delTreeWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
