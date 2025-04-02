@@ -289,7 +289,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 }</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="functionTestTab">
       <property name="styleSheet">
@@ -1301,6 +1301,29 @@ border-radius:12px;</string>
            <widget class="QTextEdit" name="textEdit_2">
             <property name="readOnly">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>设备详情页</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_11">
+       <item>
+        <widget class="QGroupBox" name="groupBox_7">
+         <property name="title">
+          <string>设备配件清单</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_12">
+          <item>
+           <widget class="QLabel" name="deviceLable">
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </item>

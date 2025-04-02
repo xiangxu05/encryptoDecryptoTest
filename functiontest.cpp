@@ -24,6 +24,13 @@ FunctionTest::FunctionTest(QWidget *parent)
     QIcon icon(":/icon/encryptoDecrypto.ico");
     this->setWindowIcon(icon);
 
+    ui->tabWidget->setCurrentIndex(0);
+
+    QPixmap device(":/icon/device.png");
+    device = device.scaled(700, 400, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    ui->deviceLable->setPixmap(device);
+    ui->deviceLable->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
     int totalWidth = ui->treeWidget->width();
     ui->treeWidget->setColumnWidth(0, totalWidth * 2);
     ui->treeWidget->setColumnWidth(1, totalWidth);

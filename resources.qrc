@@ -2,5 +2,6 @@
     <qresource prefix="/icon">
         <file>encryptoDecrypto.ico</file>
         <file>background.png</file>
+        <file>device.png</file>
     </qresource>
 </RCC>
